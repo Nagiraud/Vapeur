@@ -26,11 +26,9 @@ model Games {
 model Genres {
   id        Int      @id @default(autoincrement())
   name     String
-
 }
 
 model Editors {
   id        Int      @id @default(autoincrement())
   name     String
-
 }
