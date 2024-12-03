@@ -18,18 +18,29 @@ hbs.registerPartials(path.join(__dirname, "views", "partials")); // On définit 
 // Cela permet de récupérer les données envoyées via des formulaires et les rendre disponibles dans req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//accueil
+app.get("/", async (req, res) => {
+    res.render("index");
+});
 
-//Récupere toute les donnée de la tables Games
+//Récupere toute les donnée de la tables Games  et l'affiche
 app.get("/games", async (req, res) => {
     const games = await prisma.games.findMany();
-    res.json(games);
+    res.render("games/index",{games});
+});
+
+
+//vers la pages d'ajout d'un jeu
+app.get("/new", async (req, res) => {
+    const games = await prisma.games.findMany();
+    res.render("games/new",{games});
 });
 
 //ajout de donnée dans la table Games
-app.post("/games", async (req, res) => {
+app.post("/new", async (req, res) => {
     const { title } = req.body;
     try {
-        await prisma.task.create({
+        await prisma.games.create({
             data: { title },
         }); // Ici on ne stock pas le retour de la requête, mais on attend quand même son exécution
         res.status(201).redirect("/games"); // On redirige vers la page des tâches
@@ -38,7 +49,6 @@ app.post("/games", async (req, res) => {
         res.status(400).json({ error: "Task creation failed" });
     }
 });
-
 
 
 app.listen(PORT, () => {

@@ -1,0 +1,13 @@
+<h1>Liste des films</h1>
+
+
+
+<span>Nous sommes : {{ day }}</span>
+
+<ul>
+    {{#each movies}}
+        <li>
+            <a href="/movies/{{id}}">{{title}}</a> // on accède directement aux propriétés de l'objet courant
+        </li>
+    {{/each}}
+</ul>
