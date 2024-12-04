@@ -18,30 +18,37 @@ hbs.registerPartials(path.join(__dirname, "views", "partials")); // On définit 
 // Cela permet de récupérer les données envoyées via des formulaires et les rendre disponibles dans req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//accueil
+
+
+//                                                  accueil
 app.get("/", async (req, res) => {
     res.render("index");
 });
 
+//                                                  /games
 //Récupere toute les donnée de la tables Games  et l'affiche
 app.get("/games", async (req, res) => {
     const games = await prisma.games.findMany();
     res.render("games/index",{games});
 });
 
-
-//vers la pages d'ajout d'un jeu
-app.get("/new", async (req, res) => {
+app.get("/gamesd/", async (req, res) => {
     const games = await prisma.games.findMany();
-    res.render("games/new",{games});
+    res.render("games/index",{games});
+});
+
+//                                                  /games/new
+//vers la pages d'ajout d'un jeu
+app.get("/games/new", async (req, res) => {
+    res.render("games/new");
 });
 
 //ajout de donnée dans la table Games
-app.post("/new", async (req, res) => {
-    const { title } = req.body;
+app.post("/games/new", async (req, res) => {
+    const DataGame = req.body;
     try {
         await prisma.games.create({
-            data: { title },
+            data: DataGame,
         }); // Ici on ne stock pas le retour de la requête, mais on attend quand même son exécution
         res.status(201).redirect("/games"); // On redirige vers la page des tâches
     } catch (error) {
@@ -50,7 +57,45 @@ app.post("/new", async (req, res) => {
     }
 });
 
+//                                                  /games/delete
+//vers la pages d'ajout d'un jeu
+app.delete("/gamesd/", async (req, res) => {
+    res.render("games/new");
+});
+
+//ajout de donnée dans la table Games
+app.delete("/gamesd/", async (req, res) => {
+    const DataGame = req.body;
+    try {
+        await prisma.games.create({
+            data: DataGame,
+        }); // Ici on ne stock pas le retour de la requête, mais on attend quand même son exécution
+        res.status(201).redirect("/games"); // On redirige vers la page des tâches
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ error: "Task creation failed" });
+    }
+});
+
+// Genre
+app.get("/genres", async (req, res) => {
+    const genre = await prisma.genres.findMany();
+    //res.render("games/index",{games});
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+//TEMP
+
+//pour ajouter les genre dans la base
+
+/*const genre = {
+    name: "MMORPG",
+};
+
+await prisma.genres.create({
+    data: genre,
+})*/

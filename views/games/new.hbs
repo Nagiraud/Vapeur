@@ -1,11 +1,7 @@
-<form action="games" method="post">
+<form action="/games/new" method="post">
     <!-- Champ de texte -->
         <label for="title">Titre:</label>
         <input type="text" id="title" name="title" required>
-        <br><br>
-
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" required>
         <br><br>
 
         <label for="description">Description:</label>
@@ -15,9 +11,11 @@
         <label for="Release">Date de sortie:</label>
         <input type="date" id="Release" name="Release" required>
         <br><br>
+        <select> 
+            
+        </select>
 
-
-        <!-- Boutons radio -->
+        <!--
         <p>Genre :</p>
         <input type="radio" id="homme" name="genre" value="homme">
         <label for="homme">Homme</label>
@@ -26,21 +24,20 @@
         <label for="femme">Femme</label>
         <br><br>
 
-        <!-- Case à cocher -->
+        
         <input type="checkbox" id="newsletter" name="newsletter">
         <label for="newsletter">S'abonner à la newsletter</label>
         <br><br>
 
-        <!-- Liste déroulante -->
+        
         <label for="pays">Pays :</label>
         <select id="pays" name="pays">
             <option value="france">France</option>
             <option value="belgique">Belgique</option>
             <option value="suisse">Suisse</option>
         </select>
-        <br><br>
+        <br><br> -->
 
         <!-- Bouton de soumission -->
         <button type="submit">Envoyer</button>
-</form>
-
+</form>      
