@@ -20,24 +20,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-//                                                  accueil
+// gère l'appel de la racine et renvoie a l'acceuil
 app.get("/", async (req, res) => {
     res.render("index");
 });
 
-//                                                  /games
+// /games
 //Récupere toute les donnée de la tables Games  et l'affiche
 app.get("/games", async (req, res) => {
     const games = await prisma.games.findMany();
     res.render("games/index",{games});
 });
 
-app.get("/gamesd/", async (req, res) => {
-    const games = await prisma.games.findMany();
-    res.render("games/index",{games});
-});
 
-//                                                  /games/new
+// /games/new
 //vers la pages d'ajout d'un jeu
 app.get("/games/new", async (req, res) => {
     res.render("games/new");
@@ -57,26 +53,27 @@ app.post("/games/new", async (req, res) => {
     }
 });
 
-//                                                  /games/delete
-//vers la pages d'ajout d'un jeu
-app.delete("/gamesd/", async (req, res) => {
-    res.render("games/new");
-});
+// Editor
+app.get("/editors" , async (req, res) =>{
+    const editors = await prisma.editors.findMany();
+    res.render("editors/index",{editors});
+})
 
-//ajout de donnée dans la table Games
-app.delete("/gamesd/", async (req, res) => {
-    const DataGame = req.body;
-    try {
-        await prisma.games.create({
-            data: DataGame,
-        }); // Ici on ne stock pas le retour de la requête, mais on attend quand même son exécution
-        res.status(201).redirect("/games"); // On redirige vers la page des tâches
+app.get("/editors/new" , async(req,res) =>{
+    res.render("editors/new")
+})
+app.post("/editors/new" , async(req,res) =>{
+    const DataEditor = req.body;
+    try{
+        await prisma.editors.create({
+            data: DataEditor,
+        });
+        res.status(201).redirect("/editors");
     } catch (error) {
         console.error(error);
-        res.status(400).json({ error: "Task creation failed" });
+        res.status(400).json({ error: "Task creation failed"});
     }
-});
-
+})
 // Genre
 app.get("/genres", async (req, res) => {
     const genre = await prisma.genres.findMany();
