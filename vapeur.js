@@ -80,10 +80,8 @@ app.delete("/gamesd/", async (req, res) => {
 // Genre
 app.get("/genres", async (req, res) => {
     const genre = await prisma.genres.findMany();
-    //res.render("games/index",{games});
+    res.render("genres",{genre});
 });
-
-
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
