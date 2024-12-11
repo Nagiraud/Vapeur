@@ -33,6 +33,13 @@ app.get("/games", async (req, res) => {
 });
 
 
+=======
+app.get("/games/:id", async (req, res) => {
+    const gameId = parseInt(req.params.id, 10); // Extract and parse the game ID from the URL
+    const game = await prisma.games.findUnique({ where: { id: gameId } });
+    res.render("games/details",{game});
+});
+
 // /games/new
 //vers la pages d'ajout d'un jeu
 app.get("/games/new", async (req, res) => {
@@ -77,10 +84,8 @@ app.post("/editors/new" , async(req,res) =>{
 // Genre
 app.get("/genres", async (req, res) => {
     const genre = await prisma.genres.findMany();
-    //res.render("games/index",{games});
+    res.render("genres",{genre});
 });
-
-
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
