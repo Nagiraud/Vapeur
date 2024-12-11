@@ -1,3 +1,5 @@
+
+<!-- Formulaire d'ajout de jeux -->
 <form action="/games/new" method="post">
     <!-- Champ de texte -->
         <label for="title">Titre:</label>
@@ -7,36 +9,14 @@
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" required>
         <br><br>
-        
+
+        <!-- Champ de date -->
         <label for="Release">Date de sortie:</label>
         <input type="date" id="Release" name="Release" required>
         <br><br>
         <select> 
             
         </select>
-
-        <!--
-        <p>Genre :</p>
-        <input type="radio" id="homme" name="genre" value="homme">
-        <label for="homme">Homme</label>
-        <br>
-        <input type="radio" id="femme" name="genre" value="femme">
-        <label for="femme">Femme</label>
-        <br><br>
-
-        
-        <input type="checkbox" id="newsletter" name="newsletter">
-        <label for="newsletter">S'abonner à la newsletter</label>
-        <br><br>
-
-        
-        <label for="pays">Pays :</label>
-        <select id="pays" name="pays">
-            <option value="france">France</option>
-            <option value="belgique">Belgique</option>
-            <option value="suisse">Suisse</option>
-        </select>
-        <br><br> -->
 
         <!-- Bouton de soumission -->
         <button type="submit">Envoyer</button>
