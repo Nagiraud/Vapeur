@@ -32,9 +32,10 @@ app.get("/games", async (req, res) => {
     res.render("games/index",{games});
 });
 
-app.get("/gamesd/", async (req, res) => {
-    const games = await prisma.games.findMany();
-    res.render("games/index",{games});
+app.get("/games/:id", async (req, res) => {
+    const gameId = parseInt(req.params.id, 10); // Extract and parse the game ID from the URL
+    const game = await prisma.games.findUnique({ where: { id: gameId } });
+    res.render("games/details",{game});
 });
 
 //                                                  /games/new
