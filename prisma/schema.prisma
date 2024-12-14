@@ -21,15 +21,22 @@ model Games {
   id_Genre Int           @default(0)
   id_Editor Int         @default(0)
 
+  //relation
+  Genres      Genres   @relation(fields: [id_Genre], references: [id])
+  Editors     Editors  @relation(fields: [id_Editor], references: [id])
 }
 
 model Genres {
   id        Int      @id @default(autoincrement())
   name     String
+
+  Game Games[] //relation avec la table Games
 }
 
 model Editors {
   id        Int      @id @default(autoincrement())
   name     String
   IsDeleted Boolean @default(false)
+
+  Game Games[]
 }

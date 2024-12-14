@@ -62,8 +62,15 @@ app.post("/games/new", async (req, res) => {
 
 //page de détail d'un jeux
 app.get("/games/:id", async (req, res) => {
-    const gameId = parseInt(req.params.id,10);
-    const game = await prisma.games.findUnique({ where: { id: gameId } });
+    const gameId = parseInt(req.params.id);
+    const game = await prisma.games.findUnique({
+        where: { id: gameId },
+        
+        include: {
+          Genres: true, // Relation pour le genre
+          Editors: true, // Relation pour l'éditeur
+        },
+      });
     res.render("games/details",{game});
 });
 
