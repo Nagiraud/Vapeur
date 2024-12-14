@@ -1,0 +1,12 @@
+<h1>Toute les jeux de : {{editor.name}}</h1>
+
+<ul>
+    {{#each editor.Game}}
+        <li>
+           <p><a href="/games/{{id}}">{{title}}</a> </p> 
+        </li>
+    {{else}}
+        <li>Aucun jeu trouvé pour cette éditeur.</li>
+    {{/each}}
+</ul>
+<a href="/">Revenir au menu principal</a>

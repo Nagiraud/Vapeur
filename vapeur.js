@@ -76,6 +76,19 @@ app.get("/games/:id", async (req, res) => {
     res.render("games/detail",{game});
 });
 
+app.put("/games/:id", async (req, res) => {
+    const gameId = parseInt(req.params.id);
+    const game = await prisma.games.findUnique({
+        where: { id: gameId },
+        
+        include: {
+          Genres: true, // Relation pour le genre
+          Editors: true, // Relation pour l'éditeur
+        },
+      });
+    res.render("games/modify",{game});
+});
+
 
 
 // EDITEURS
@@ -103,6 +116,17 @@ app.post("/editors/new" , async(req,res) =>{
         res.status(400).json({ error: "Task creation failed"});
     }
 })
+
+app.get("/editors/:id", async (req, res) => {
+    const genreEd = parseInt(req.params.id);
+    const editor = await prisma.editors.findUnique({
+        where: { id: genreEd },
+        include: {
+          Game: true,
+        },
+      });
+    res.render("editors/detail",{editor});
+});
 
 
 
