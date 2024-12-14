@@ -26,6 +26,8 @@ app.get("/", async (req, res) => {
     res.render("index");
 });
 
+
+//JEUX
 //Récupere toute les donnée de la tables Games  et l'affiche
 app.get("/games", async (req, res) => {
     const games = await prisma.games.findMany();
@@ -71,12 +73,12 @@ app.get("/games/:id", async (req, res) => {
           Editors: true, // Relation pour l'éditeur
         },
       });
-    res.render("games/details",{game});
+    res.render("games/detail",{game});
 });
 
 
 
-
+// EDITEURS
 // affiche les editeurs
 app.get("/editors" , async (req, res) =>{
     const editors = await prisma.editors.findMany();
@@ -103,12 +105,25 @@ app.post("/editors/new" , async(req,res) =>{
 })
 
 
+
+// GENRES
 // affiche les genres
 app.get("/genres", async (req, res) => {
     const genre = await prisma.genres.findMany();
     res.render("genres",{genre});
 });
 
+//page de détail d'un jeux
+app.get("/genres/:id", async (req, res) => {
+    const genreId = parseInt(req.params.id);
+    const genre = await prisma.genres.findUnique({
+        where: { id: genreId },
+        include: {
+          Game: true,
+        },
+      });
+    res.render("genres/detail",{genre});
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
