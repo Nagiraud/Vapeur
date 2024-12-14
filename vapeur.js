@@ -22,10 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // gère l'appel de la racine et renvoie a l'acceuil
 app.get("/", async (req, res) => {
+    
     res.render("index");
 });
 
-// /games
 //Récupere toute les donnée de la tables Games  et l'affiche
 app.get("/games", async (req, res) => {
     const games = await prisma.games.findMany();
@@ -33,25 +33,25 @@ app.get("/games", async (req, res) => {
 });
 
 
-=======
-app.get("/games/:id", async (req, res) => {
-    const gameId = parseInt(req.params.id, 10); // Extract and parse the game ID from the URL
-    const game = await prisma.games.findUnique({ where: { id: gameId } });
-    res.render("games/details",{game});
-});
-
-// /games/new
 //vers la pages d'ajout d'un jeu
 app.get("/games/new", async (req, res) => {
-    res.render("games/new");
+    const genre = await prisma.genres.findMany();
+    const editor = await prisma.editors.findMany();
+    res.render("games/new", {genre,editor,});
 });
 
 //ajout de donnée dans la table Games
 app.post("/games/new", async (req, res) => {
-    const DataGame = req.body;
+    const { title, description, releaseDate, id_Genre, id_Editor } = req.body;
     try {
         await prisma.games.create({
-            data: DataGame,
+            data: {
+                title,
+                description,
+                ReleaseDate: releaseDate,
+                id_Genre: parseInt(id_Genre),
+                id_Editor: parseInt(id_Editor),
+              },
         }); // Ici on ne stock pas le retour de la requête, mais on attend quand même son exécution
         res.status(201).redirect("/games"); // On redirige vers la page des tâches
     } catch (error) {
@@ -60,15 +60,28 @@ app.post("/games/new", async (req, res) => {
     }
 });
 
-// Editor
+//page de détail d'un jeux
+app.get("/games/:id", async (req, res) => {
+    const gameId = parseInt(req.params.id,10);
+    const game = await prisma.games.findUnique({ where: { id: gameId } });
+    res.render("games/details",{game});
+});
+
+
+
+
+// affiche les editeurs
 app.get("/editors" , async (req, res) =>{
     const editors = await prisma.editors.findMany();
     res.render("editors/index",{editors});
 })
 
+//page d'ajout d'un editeur
 app.get("/editors/new" , async(req,res) =>{
     res.render("editors/new")
 })
+
+//ajout d'un editeur dans la table Editor
 app.post("/editors/new" , async(req,res) =>{
     const DataEditor = req.body;
     try{
@@ -81,11 +94,15 @@ app.post("/editors/new" , async(req,res) =>{
         res.status(400).json({ error: "Task creation failed"});
     }
 })
-// Genre
+
+
+// affiche les genres
 app.get("/genres", async (req, res) => {
     const genre = await prisma.genres.findMany();
     res.render("genres",{genre});
 });
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

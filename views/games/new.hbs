@@ -1,21 +1,35 @@
 
 <!-- Formulaire d'ajout de jeux -->
 <form action="/games/new" method="post">
-    <!-- Champ de texte -->
+        <!-- titre du jeux -->
         <label for="title">Titre:</label>
         <input type="text" id="title" name="title" required>
         <br><br>
 
+        <!-- description du jeux -->
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" required>
         <br><br>
 
-        <!-- Champ de date -->
-        <label for="Release">Date de sortie:</label>
-        <input type="date" id="Release" name="Release" required>
+        <!-- date -->
+        <label for="ReleaseDate">Date de sortie:</label>
+        <input type="date" id="ReleaseDate" name="ReleaseDate" required>
         <br><br>
-        <select> 
-            
+
+        <!-- genre disponible-->
+        <label for="genre">Genre:</label>
+        <select id="genre" name="id_Genre" required>
+            {{#each genre}}
+                <option value="{{this.id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+
+        <!-- editeurs disponible -->
+        <label for="editor">Editor:</label>
+        <select id="editor" name="id_Editor" required>
+            {{#each editor}}
+                <option value="{{id}}">{{name}}</option>
+            {{/each}}
         </select>
 
         <!-- Bouton de soumission -->

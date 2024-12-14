@@ -18,8 +18,8 @@ model Games {
   title     String
   description    String  
   ReleaseDate DateTime @default(now())
-  Genre Int           @default(0)
-  Editor Int         @default(0)
+  id_Genre Int           @default(0)
+  id_Editor Int         @default(0)
 
 }
 
