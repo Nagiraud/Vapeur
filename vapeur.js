@@ -76,6 +76,44 @@ app.get("/games/:id", async (req, res) => {
     res.render("games/detail",{game});
 });
 
+//modification d'un jeux
+app.get("/games/:id/edit", async (req, res) => {
+    const gameId = parseInt(req.params.id);
+    const game = await prisma.games.findUnique({
+        where: { id: parseInt(req.params.id) },
+        include:{
+            Genres:true,
+            Editors:true,
+        }
+    });
+    const genres = await prisma.genres.findMany();
+    const editors = await prisma.editors.findMany();
+    res.render("games/modify", {game,genres,editors});
+});
+
+app.post("/games/:id", async (req, res) => {
+    const gameId = parseInt(req.params.id);
+    const { title, description, ReleaseDate, id_Genre, id_Editor } = req.body;
+try{
+    const updatedGame = await prisma.games.update({
+            where: {
+                id: gameId, 
+            },
+            data: {
+                title,       
+                description,
+                ReleaseDate: new Date(ReleaseDate), 
+                id_Genre:parseInt(id_Genre),
+                id_Editor:parseInt(id_Editor),
+            },
+        });
+        res.status(201).redirect("/games");
+    }catch (error){
+        console.error(error);
+        res.status(400).json({ error: "Task creation failed" });
+    }
+});
+
 
 
 // EDITEURS
@@ -103,6 +141,17 @@ app.post("/editors/new" , async(req,res) =>{
         res.status(400).json({ error: "Task creation failed"});
     }
 })
+
+app.get("/editors/:id", async (req, res) => {
+    const genreEd = parseInt(req.params.id);
+    const editor = await prisma.editors.findUnique({
+        where: { id: genreEd },
+        include: {
+          Game: true,
+        },
+      });
+    res.render("editors/detail",{editor});
+});
 
 
 
