@@ -155,10 +155,18 @@ app.post("/editors/new" , async(req,res) =>{
     }
 })
 
-app.get("/editors/:id", async (req, res) => {
-    const genreEd = parseInt(req.params.id);
+//modification d'un jeux
+app.get("/editors/:id/edit", async (req, res) => {
     const editor = await prisma.editors.findUnique({
-        where: { id: genreEd },
+        where: { id: parseInt(req.params.id) },
+    });
+    res.render("editors/modify", {editor});
+});
+
+app.get("/editors/:id", async (req, res) => {
+    const genreId = parseInt(req.params.id);
+    const editor = await prisma.editors.findUnique({
+        where: { id: genreId },
         include: {
           Game: true,
         },
@@ -166,6 +174,26 @@ app.get("/editors/:id", async (req, res) => {
     res.render("editors/detail",{editor});
 });
 
+
+//modify editor
+app.post("/editors/:id", async (req, res) => {
+    const editorId = parseInt(req.params.id);
+    const { name } = req.body;
+try{
+    const updatedEditors = await prisma.editors.update({
+            where: {
+                id: editorId, 
+            },
+            data: {
+                name,
+            },
+        });
+        res.status(201).redirect("/editors");
+    }catch (error){
+        console.error(error);
+        res.status(400).json({ error: "editor update failed" });
+    }
+});
 
 
 // GENRES
