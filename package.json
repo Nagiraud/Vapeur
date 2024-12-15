@@ -4,6 +4,7 @@
   "description": "Projet Vapeur",
   "main": "vapeur.js",
   "scripts": {
+    "create":"npm install prisma @prisma/client sqlite3",
     "start": "nodemon vapeur.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

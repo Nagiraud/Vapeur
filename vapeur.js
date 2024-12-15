@@ -76,17 +76,42 @@ app.get("/games/:id", async (req, res) => {
     res.render("games/detail",{game});
 });
 
-app.put("/games/:id", async (req, res) => {
+//modification d'un jeux
+app.get("/games/:id/edit", async (req, res) => {
     const gameId = parseInt(req.params.id);
     const game = await prisma.games.findUnique({
-        where: { id: gameId },
-        
-        include: {
-          Genres: true, // Relation pour le genre
-          Editors: true, // Relation pour l'éditeur
-        },
-      });
-    res.render("games/modify",{game});
+        where: { id: parseInt(req.params.id) },
+        include:{
+            Genres:true,
+            Editors:true,
+        }
+    });
+    const genres = await prisma.genres.findMany();
+    const editors = await prisma.editors.findMany();
+    res.render("games/modify", {game,genres,editors});
+});
+
+app.post("/games/:id", async (req, res) => {
+    const gameId = parseInt(req.params.id);
+    const { title, description, ReleaseDate, id_Genre, id_Editor } = req.body;
+try{
+    const updatedGame = await prisma.games.update({
+            where: {
+                id: gameId, 
+            },
+            data: {
+                title,       
+                description,
+                ReleaseDate: new Date(ReleaseDate), 
+                id_Genre:parseInt(id_Genre),
+                id_Editor:parseInt(id_Editor),
+            },
+        });
+        res.status(201).redirect("/games");
+    }catch (error){
+        console.error(error);
+        res.status(400).json({ error: "Task creation failed" });
+    }
 });
 
 
