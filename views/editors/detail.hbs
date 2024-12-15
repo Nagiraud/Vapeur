@@ -1,4 +1,7 @@
 <h1>Toute les jeux de : {{editor.name}}</h1>
+<form action="/editors/{{editor.id}}/edit" method="GET" style="display:inline;">
+    <button type="submit">Modifier</button>
+</form>
 
 <ul>
     {{#each editor.Game}}

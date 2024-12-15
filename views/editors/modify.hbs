@@ -1,0 +1,12 @@
+<h1>Modification de : {{editor.name}}</h1>
+
+<form action="/editors/{{editor.id}}" method="post">
+
+        <p>Ancien nom : {{editor.name}}</p>
+        <label for="name">Nouveau nom:</label>
+        <input type="text" id="name" name="name" value="{{editor.name}}" required>
+        <br><br>
+
+        <!-- Bouton de soumission -->
+        <button type="submit">Envoyer</button>
+</form>  
