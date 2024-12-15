@@ -104,6 +104,43 @@ app.post("/editors/new" , async(req,res) =>{
     }
 })
 
+//ajout bouton delete et modifier
+app.get("/editors/index", async(req,res)=>{
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", ()=>{
+            const editorID = button.dataset.id;
+            try{
+                prisma.editors.update({
+                    where: {
+                        id_Editor: editorID,
+                    },
+                    data:{
+                        IsDeleted: true,
+                    },
+                });
+                res.status(201).redirect("/editors");
+            }catch{
+                console.error(error);
+                res.status(400).json({ error: "editor suppression failed" });
+            }
+        })
+    });
+
+    const modifyButtons = document.querySelectorAll('.modify-button');
+    modifyButtons.forEach(button =>{
+        button.addEventListener("click", ()=>{
+            const editorID = button.dataset.id;
+            //ajouter une zone de texte pour la modification du nom
+            try{
+
+            }catch{
+
+            }
+        })
+    })
+})
+
 
 
 // GENRES

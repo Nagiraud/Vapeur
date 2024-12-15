@@ -2,8 +2,10 @@
 
 <ul>
     {{#each editors}}
-        <li>
+        <li id="{{id}}">
             <a href="/editors/{{id}}">{{name}}</a> 
+            <button class="delete-button" data-id="{{id}}">Supprimer</button>
+            <button class="modify-button" data-id="{{id}}">modifier</button>
         </li>
     {{/each}}
 </ul>
