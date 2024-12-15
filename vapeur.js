@@ -114,6 +114,19 @@ try{
     }
 });
 
+app.post("/games/:id/delete", async (req, res) => {
+    try{
+            const deleteGame = await prisma.games.delete({
+                where: {
+                    id: parseInt(req.params.id),
+                },
+            })
+            res.status(201).redirect("/games");
+    } catch(error){
+        console.error(error);
+        res.status(400).json({ error: "games delete failed" });
+    }
+});
 
 
 // EDITEURS
