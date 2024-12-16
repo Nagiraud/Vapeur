@@ -4,6 +4,8 @@ const prisma = new PrismaClient();
 const express = require("express");
 const router = express.Router();
 
+
+
 //JEUX
 //Récupere toute les donnée de la tables Games  et l'affiche
 router.get("/", async (req, res) => {
@@ -53,9 +55,9 @@ router.get("/:id", async (req, res) => {
     res.render("games/detail",{game});
 });
 
+
 //modification d'un jeux
 router.get("/:id/edit", async (req, res) => {
-    const gameId = parseInt(req.params.id);
     const game = await prisma.games.findUnique({
         where: { id: parseInt(req.params.id) },
         include:{

@@ -4,6 +4,8 @@ const prisma = new PrismaClient();
 const express = require("express");
 const router = express.Router();
 
+
+
 // GENRES
 // affiche les genres
 router.get("/", async (req, res) => {

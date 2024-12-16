@@ -1,12 +1,16 @@
-<h1>Modification de : {{editor.name}}</h1>
+<div class="content">
+        <h1>Modification de : {{editor.name}}</h1>
 
-<form action="/editors/{{editor.id}}" method="post">
+        <form action="/editors/{{editor.id}}" method="post" class="inline-form">
 
-        <p>Ancien nom : {{editor.name}}</p>
-        <label for="name">Nouveau nom:</label>
-        <input type="text" id="name" name="name" value="{{editor.name}}" required>
-        <br><br>
+                <p>Ancien nom : {{editor.name}}</p>
+                <label for="name">Nouveau nom:</label>
+                <input type="text" id="name" name="name" value="{{editor.name}}" required>
+                <br><br>
 
-        <!-- Bouton de soumission -->
-        <button type="submit">Envoyer</button>
-</form>  
+                <!-- Bouton de soumission -->
+                <div class="actions">
+                        <button type="submit" class="btn">Envoyer</button>
+                </div>
+        </form>  
+</div>

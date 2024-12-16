@@ -1,17 +1,16 @@
-<h1>Nom du jeux : {{game.title}}</h1>
+<div class="content">
+    <h1>Nom du jeux : {{game.title}}</h1>
 
-<p><strong>Description:</strong> {{game.description}}</p>
-<p><strong>Release Date:</strong> {{game.ReleaseDate}}</p>
-<p><strong>Genre:</strong><a href="/genres/{{game.Genres.id}}">  {{game.Genres.name}}</a></p>
-<p><strong>Editor:</strong><a href="/editors/{{game.Editors.id}}"> {{game.Editors.name}}</a></p>
+    <p><strong>Description:</strong> {{game.description}}</p></br>
+    <p><strong>Release Date:</strong> {{game.ReleaseDate}}</p></br>
+    <p><strong>Genre:</strong><a href="/genres/{{game.Genres.id}}">  {{game.Genres.name}}</a></p></br>
+    <p><strong>Editor:</strong><a href="/editors/{{game.Editors.id}}"> {{game.Editors.name}}</a></p></br>
 
 
-<form action="/games/{{game.id}}/delete" method="POST" style="display:inline;">
-    <button type="submit">Supprimer</button>
-</form>
-<form action="/games/{{game.id}}/edit" method="GET" style="display:inline;">
-
-    <button type="submit">Modifier</button>
-</form>
-
-<a href="/">Revenir au menu principal</a>
+    <form action="/games/{{game.id}}/delete" method="POST" class="inline-form">
+        <button type="submit" class="btn delete-btn">Supprimer</button>
+    </form>
+    <form action="/games/{{game.id}}/edit" method="GET" class="inline-form">
+        <button type="submit" class="btn edit-btn">Modifier</button>
+    </form>
+</div>

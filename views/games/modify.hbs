@@ -1,43 +1,46 @@
-<h1>Modification de : {{game.title}}</h1>
 
-<form action="/games/{{game.id}}" method="post">
+<div class="content">
+    <h1>Modification de : {{game.title}}</h1>
 
-        <p>Ancien titre : {{game.title}}</p>
-        <label for="title">Nouveau titre:</label>
-        <input type="text" id="title" name="title" value="{{game.title}}" required>
-        <br><br>
+    <form action="/games/{{game.id}}" method="post">
 
-        <!-- description du jeux -->
-         <p>Ancienne description : {{game.description}}</p>
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" value="{{game.description}}" required>
-        <br><br>
+            <p>Ancien titre : {{game.title}}</p>
+            <label for="title">Nouveau titre:</label>
+            <input type="text" id="title" name="title" value="{{game.title}}" required>
+            <br><br>
 
-        <!-- date -->
-         <p>Ancienne date : {{game.ReleaseDate}}</p>
-        <label for="ReleaseDate">Date de sortie:</label>
-        <input type="date" id="ReleaseDate" name="ReleaseDate" value="{{game.ReleaseDate}}" required>
-        <br><br>
+            <!-- description du jeux -->
+            <p>Ancienne description : {{game.description}}</p>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" value="{{game.description}}" required>
+            <br><br>
 
-        <!-- genre disponible-->
+            <!-- date -->
+            <p>Ancienne date : {{game.ReleaseDate}}</p>
+            <label for="ReleaseDate">Date de sortie:</label>
+            <input type="date" id="ReleaseDate" name="ReleaseDate" value="{{game.ReleaseDate}}" required>
+            <br><br>
 
-         <p>Ancien genre : {{game.Genres.name}}</p>
-        <label for="genre">Genre:</label>
-        <select id="genre" name="id_Genre" required>
-            {{#each genres}}
-                <option value="{{id}}">{{name}}</option>
-            {{/each}}
-        </select>
+            <!-- genre disponible-->
 
-        <!-- editeurs disponible -->
-        <p>Ancien editeur : {{game.Editors.name}}</p>
-        <label for="editor">Editor:</label>
-        <select id="editor" name="id_Editor" required>
-            {{#each editors}}
-                <option value="{{id}}">{{name}}</option>
-            {{/each}}
-        </select>
+            <p>Ancien genre : {{game.Genres.name}}</p>
+            <label for="genre">Genre:</label>
+            <select id="genre" name="id_Genre" required>
+                {{#each genres}}
+                    <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
 
-        <!-- Bouton de soumission -->
-        <button type="submit">Envoyer</button>
-</form>  
+            <!-- editeurs disponible -->
+            <p>Ancien editeur : {{game.Editors.name}}</p>
+            <label for="editor">Editor:</label>
+            <select id="editor" name="id_Editor" required>
+                {{#each editors}}
+                    <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+
+            <!-- Bouton de soumission -->
+            <button type="submit" class="btn">Envoyer</button>
+    </form>  
+</div>
