@@ -1,5 +1,5 @@
 # Vapeur
-Projet Vapeur
+Projet Vapeur (Nathan Giraud et Julien Demaiziere)
 
 ## initialisation
 ### installer les dépendances
