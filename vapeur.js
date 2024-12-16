@@ -8,6 +8,7 @@ const PORT = 3008;
 
 const hbs = require("hbs");
 const path = require('path');
+const { error } = require("console");
 
 // Configuration de Handlebars pour Express
 app.set("view engine", "hbs"); // On définit le moteur de template que Express va utiliser
@@ -155,6 +156,38 @@ app.post("/editors/new" , async(req,res) =>{
     }
 })
 
+
+//gère le bouton delete
+app.post("/editors/:id/delete", async(req,res)=>{
+        try{
+        const editorID = parseInt(req.params.id);
+        console.log(editorID);
+        await prisma.games.deleteMany({
+            where:{
+                id_Editor: editorID,
+            },  
+        });
+        await prisma.editors.delete({
+            where:{
+                id: editorID,
+            },
+        });
+        
+        console.log("delete complete");
+        res.status(201).redirect("/editors");
+        }catch{
+            console.error(error);
+            res.status(400).json({error: "deletion failed"});
+        }
+        
+})
+
+//gère le bouton modify
+app.post("/editors/:id/modify", async(req,res)=>{
+    
+})
+
+
 //modification d'un jeux
 app.get("/editors/:id/edit", async (req, res) => {
     const editor = await prisma.editors.findUnique({
@@ -194,6 +227,7 @@ try{
         res.status(400).json({ error: "editor update failed" });
     }
 });
+
 
 
 // GENRES
