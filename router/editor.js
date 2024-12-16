@@ -1,20 +1,23 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const express = require("express");
+const router = express.Router();
+
 // EDITEURS
 // affiche les editeurs
-app.get("/" , async (req, res) =>{
+router.get("/" , async (req, res) =>{
     const editors = await prisma.editors.findMany();
     res.render("editors/index",{editors});
 })
 
 //page d'ajout d'un editeur
-app.get("/new" , async(req,res) =>{
+router.get("/new" , async(req,res) =>{
     res.render("editors/new")
 })
 
 //ajout d'un editeur dans la table Editor
-app.post("/new" , async(req,res) =>{
+router.post("/new" , async(req,res) =>{
     const DataEditor = req.body;
     try{
         await prisma.editors.create({
@@ -27,15 +30,41 @@ app.post("/new" , async(req,res) =>{
     }
 })
 
+//gère le bouton delete
+router.post("/:id/delete", async(req,res)=>{
+    try{
+    const editorID = parseInt(req.params.id);
+    console.log(editorID);
+    await prisma.games.deleteMany({
+        where:{
+            id_Editor: editorID,
+        },  
+    });
+    await prisma.editors.delete({
+        where:{
+            id: editorID,
+        },
+    });
+    
+    console.log("delete complete");
+    res.status(201).redirect("/editors");
+    }catch{
+        console.error(error);
+        res.status(400).json({error: "deletion failed"});
+    }
+    
+})
+
+
 //modification d'un jeux
-app.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", async (req, res) => {
     const editor = await prisma.editors.findUnique({
         where: { id: parseInt(req.params.id) },
     });
     res.render("editors/modify", {editor});
 });
 
-app.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const genreId = parseInt(req.params.id);
     const editor = await prisma.editors.findUnique({
         where: { id: genreId },
@@ -48,7 +77,7 @@ app.get("/:id", async (req, res) => {
 
 
 //modify editor
-app.post("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
     const editorId = parseInt(req.params.id);
     const { name } = req.body;
 try{
@@ -66,3 +95,7 @@ try{
         res.status(400).json({ error: "editor update failed" });
     }
 });
+
+module.exports = {
+    router,
+}

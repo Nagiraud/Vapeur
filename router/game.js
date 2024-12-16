@@ -1,23 +1,26 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const express = require("express");
+const router = express.Router();
+
 //JEUX
 //Récupere toute les donnée de la tables Games  et l'affiche
-app.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
     const games = await prisma.games.findMany();
     res.render("games/index",{games});
 });
 
 
 //vers la pages d'ajout d'un jeu
-app.get("/new", async (req, res) => {
+router.get("/new", async (req, res) => {
     const genre = await prisma.genres.findMany();
     const editor = await prisma.editors.findMany();
     res.render("games/new", {genre,editor,});
 });
 
 //ajout de donnée dans la table Games
-app.post("/new", async (req, res) => {
+router.post("/new", async (req, res) => {
     const { title, description, releaseDate, id_Genre, id_Editor } = req.body;
     try {
         await prisma.games.create({
@@ -37,7 +40,7 @@ app.post("/new", async (req, res) => {
 });
 
 //page de détail d'un jeux
-app.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const gameId = parseInt(req.params.id);
     const game = await prisma.games.findUnique({
         where: { id: gameId },
@@ -51,7 +54,7 @@ app.get("/:id", async (req, res) => {
 });
 
 //modification d'un jeux
-app.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", async (req, res) => {
     const gameId = parseInt(req.params.id);
     const game = await prisma.games.findUnique({
         where: { id: parseInt(req.params.id) },
@@ -65,7 +68,7 @@ app.get("/:id/edit", async (req, res) => {
     res.render("games/modify", {game,genres,editors});
 });
 
-app.post("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
     const gameId = parseInt(req.params.id);
     const { title, description, ReleaseDate, id_Genre, id_Editor } = req.body;
 try{
@@ -88,7 +91,7 @@ try{
     }
 });
 
-app.post("/:id/delete", async (req, res) => {
+router.post("/:id/delete", async (req, res) => {
     try{
             const deleteGame = await prisma.games.delete({
                 where: {
@@ -101,3 +104,7 @@ app.post("/:id/delete", async (req, res) => {
         res.status(400).json({ error: "games delete failed" });
     }
 });
+
+module.exports = {
+    router,
+}
