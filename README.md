@@ -13,7 +13,7 @@ avec :
 DATABASE_URL="file:./database.db
 ``
 
-## démarer le serveur
+## démarrer le serveur
 
 ### démarrer prisma
 ``
