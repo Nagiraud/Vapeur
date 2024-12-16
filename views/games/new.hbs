@@ -1,37 +1,45 @@
 
-<!-- Formulaire d'ajout de jeux -->
-<form action="/games/new" method="post">
-        <!-- titre du jeux -->
-        <label for="title">Titre:</label>
-        <input type="text" id="title" name="title" required>
-        <br><br>
 
-        <!-- description du jeux -->
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" required>
-        <br><br>
 
-        <!-- date -->
-        <label for="ReleaseDate">Date de sortie:</label>
-        <input type="date" id="ReleaseDate" name="ReleaseDate" required>
-        <br><br>
+<div class="content">
+    <H1>Ajouter un jeux</H1></br>
+    <!-- Formulaire d'ajout de jeux -->
+    <form action="/games/new" method="post" class="inline-form">
+            <!-- titre du jeux -->
+            <label for="title">Titre:</label>
+            <input type="text" id="title" name="title" required>
+            <br><br>
 
-        <!-- genre disponible-->
-        <label for="genre">Genre:</label>
-        <select id="genre" name="id_Genre" required>
-            {{#each genre}}
-                <option value="{{this.id}}">{{this.name}}</option>
-            {{/each}}
-        </select>
+            <!-- description du jeux -->
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+            <br><br>
 
-        <!-- editeurs disponible -->
-        <label for="editor">Editor:</label>
-        <select id="editor" name="id_Editor" required>
-            {{#each editor}}
-                <option value="{{id}}">{{name}}</option>
-            {{/each}}
-        </select>
+            <!-- date -->
+            <label for="ReleaseDate">Date de sortie:</label>
+            <input type="date" id="ReleaseDate" name="ReleaseDate" required>
+            <br><br>
 
-        <!-- Bouton de soumission -->
-        <button type="submit">Envoyer</button>
-</form>      
+            <!-- genre disponible-->
+            <label for="genre">Genre:</label>
+            <select id="genre" name="id_Genre" required>
+                {{#each genre}}
+                    <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            <br><br>
+
+            <!-- editeurs disponible -->
+            <label for="editor">Editor:</label>
+            <select id="editor" name="id_Editor" required>
+                {{#each editor}}
+                    <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            <br><br>
+
+            <!-- Bouton de soumission -->
+            
+            <button type="submit" class="btn">Envoyer</button>
+    </form>   
+</div>   
