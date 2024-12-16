@@ -4,12 +4,6 @@
     {{#each editors}}
         <li id="{{id}}">
             <a href="/editors/{{id}}">{{name}}</a> 
-            <form action="/editors/{{id}}/delete" id="delete" method="POST">
-                <button type="submit">delete</button>
-            </form>
-            <form action="/editors/{{id}}/modify">
-                <button class="modify-button" value="{{id}}">modifier</button>
-            </form>
         </li>
     {{/each}}
 </ul>
