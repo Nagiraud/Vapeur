@@ -4,7 +4,7 @@ Projet Vapeur
 ## initialisation
 ### installer les dépendances
 ``
-npm i 
+npm install
 ``
 ### créé le .env
 #### créé le .env à la racine du projet
