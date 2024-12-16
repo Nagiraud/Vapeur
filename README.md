@@ -10,7 +10,7 @@ npm install
 #### créé le .env à la racine du projet
 avec : 
 ``
-DATABASE_URL="file:./database.db
+DATABASE_URL="file:./database.db"
 ``
 
 ## démarrer le serveur
