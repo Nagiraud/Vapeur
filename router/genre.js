@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     res.render("genres",{genre});
 });
 
-//page de détail d'un jeux
+//liste de jeux d'un genre
 router.get("/:id", async (req, res) => {
     const genreId = parseInt(req.params.id);
     const genre = await prisma.genres.findUnique({

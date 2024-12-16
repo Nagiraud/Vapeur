@@ -55,7 +55,7 @@ router.post("/:id/delete", async(req,res)=>{
     
 })
 
-//modification d'un jeux
+//modification d'un editeurs
 router.get("/:id/edit", async (req, res) => {
     const editor = await prisma.editors.findUnique({
         where: { id: parseInt(req.params.id) },
@@ -63,6 +63,7 @@ router.get("/:id/edit", async (req, res) => {
     res.render("editors/modify", {editor});
 });
 
+//Detail d'un editeurs
 router.get("/:id", async (req, res) => {
     const genreId = parseInt(req.params.id);
     const editor = await prisma.editors.findUnique({
