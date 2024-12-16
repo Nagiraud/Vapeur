@@ -8,6 +8,7 @@ const PORT = 3008;
 
 const hbs = require("hbs");
 const path = require('path');
+const { error } = require("console");
 
 // Configuration de Handlebars pour Express
 app.set("view engine", "hbs"); // On définit le moteur de template que Express va utiliser
@@ -104,41 +105,34 @@ app.post("/editors/new" , async(req,res) =>{
     }
 })
 
-//ajout bouton delete et modifier
-app.get("/editors/index", async(req,res)=>{
-    const deleteButtons = document.querySelectorAll('.delete-button');
-    deleteButtons.forEach(button => {
-        button.addEventListener("click", ()=>{
-            const editorID = button.dataset.id;
-            try{
-                prisma.editors.update({
-                    where: {
-                        id_Editor: editorID,
-                    },
-                    data:{
-                        IsDeleted: true,
-                    },
-                });
-                res.status(201).redirect("/editors");
-            }catch{
-                console.error(error);
-                res.status(400).json({ error: "editor suppression failed" });
-            }
-        })
-    });
+//gère le bouton delete
+app.post("/editors/:id/delete", async(req,res)=>{
+        try{
+        const editorID = parseInt(req.params.id);
+        console.log(editorID);
+        await prisma.games.deleteMany({
+            where:{
+                id_Editor: editorID,
+            },  
+        });
+        await prisma.editors.delete({
+            where:{
+                id: editorID,
+            },
+        });
+        
+        console.log("delete complete");
+        res.status(201).redirect("/editors");
+        }catch{
+            console.error(error);
+            res.status(400).json({error: "deletion failed"});
+        }
+        
+})
 
-    const modifyButtons = document.querySelectorAll('.modify-button');
-    modifyButtons.forEach(button =>{
-        button.addEventListener("click", ()=>{
-            const editorID = button.dataset.id;
-            //ajouter une zone de texte pour la modification du nom
-            try{
-
-            }catch{
-
-            }
-        })
-    })
+//gère le bouton modify
+app.post("/editors/:id/modify", async(req,res)=>{
+    
 })
 
 
