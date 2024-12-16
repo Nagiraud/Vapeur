@@ -7,9 +7,10 @@ Projet Vapeur
 npm i 
 ``
 ### créé le .env
+#### créé le .env à la racine du projet
+avec : 
 ``
-créé le .env à la racine du projet
-avec : DATABASE_URL="file:./database.db"
+DATABASE_URL="file:./database.db
 ``
 
 ## démarer le serveur
