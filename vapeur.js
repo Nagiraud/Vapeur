@@ -27,6 +27,7 @@ app.get("/", async (req, res) => {
     res.render("index");
 });
 
+//inclure les routes
 const router = require("./router/route");
 app.use("/",router.router);
 
