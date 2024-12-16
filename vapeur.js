@@ -9,6 +9,8 @@ const PORT = 3008;
 const hbs = require("hbs");
 const path = require('path');
 
+app.use(express.static("public"));
+
 // Configuration de Handlebars pour Express
 app.set("view engine", "hbs"); // On définit le moteur de template que Express va utiliser
 app.set("views", path.join(__dirname, "views")); // On définit le dossier des vues (dans lequel se trouvent les fichiers .hbs)
