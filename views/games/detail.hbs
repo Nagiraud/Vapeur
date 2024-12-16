@@ -2,7 +2,16 @@
 
 <p><strong>Description:</strong> {{game.description}}</p>
 <p><strong>Release Date:</strong> {{game.ReleaseDate}}</p>
-<p><strong>Genre:</strong><a href="/genre/{{game.Genres.id}}">  {{game.Genres.name}}</a></p>
-<p><strong>Editor:</strong><a href="/editor/{{game.Editors.id}}"> {{game.Editors.name}}</a></p>
+<p><strong>Genre:</strong><a href="/genres/{{game.Genres.id}}">  {{game.Genres.name}}</a></p>
+<p><strong>Editor:</strong><a href="/editors/{{game.Editors.id}}"> {{game.Editors.name}}</a></p>
+
+
+<form action="/games/{{game.id}}/delete" method="POST" style="display:inline;">
+    <button type="submit">Supprimer</button>
+</form>
+<form action="/games/{{game.id}}/edit" method="GET" style="display:inline;">
+
+    <button type="submit">Modifier</button>
+</form>
 
 <a href="/">Revenir au menu principal</a>
