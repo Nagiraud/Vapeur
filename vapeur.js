@@ -8,6 +8,7 @@ const PORT = 3008;
 
 const hbs = require("hbs");
 const path = require('path');
+const { error } = require("console");
 
 // Configuration de Handlebars pour Express
 app.set("view engine", "hbs"); // On définit le moteur de template que Express va utiliser
