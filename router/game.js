@@ -37,37 +37,49 @@ router.post("/new", async (req, res) => {
         res.status(201).redirect("/games"); // On redirige vers la page des tâches
     } catch (error) {
         console.error(error);
-        res.status(400).json({ error: "Task creation failed" });
+        res.status(400).json({ error: "adding games failed" });
     }
 });
 
 //page de détail d'un jeux
 router.get("/:id", async (req, res) => {
-    const gameId = parseInt(req.params.id);
-    const game = await prisma.games.findUnique({
-        where: { id: gameId },
-        
-        include: {
-          Genres: true, // Relation pour le genre
-          Editors: true, // Relation pour l'éditeur
-        },
-      });
-    res.render("games/detail",{game});
+    try{
+        const gameId = parseInt(req.params.id);
+        const game = await prisma.games.findUnique({
+            where: { id: gameId },
+            
+            include: {
+            Genres: true, // Relation pour le genre
+            Editors: true, // Relation pour l'éditeur
+            },
+        });
+        res.render("games/detail",{game});
+    }catch (error){
+        console.error(error);
+        res.status(400).json({ error: "get games failed" });
+    }
+   
 });
 
 
 //modification d'un jeux
 router.get("/:id/edit", async (req, res) => {
-    const game = await prisma.games.findUnique({
-        where: { id: parseInt(req.params.id) },
-        include:{
-            Genres:true,
-            Editors:true,
-        }
-    });
-    const genres = await prisma.genres.findMany();
-    const editors = await prisma.editors.findMany();
-    res.render("games/modify", {game,genres,editors});
+    try{
+        const game = await prisma.games.findUnique({
+            where: { id: parseInt(req.params.id) },
+            include:{
+                Genres:true,
+                Editors:true,
+            }
+        });
+        const genres = await prisma.genres.findMany();
+        const editors = await prisma.editors.findMany();
+        res.render("games/modify", {game,genres,editors});
+    }catch (error){
+        console.error(error);
+        res.status(400).json({ error: "modification failed" });
+    }
+    
 });
 
 router.post("/:id", async (req, res) => {
@@ -134,7 +146,7 @@ router.post("/:id/unhighlight", async(req,res)=>{
                 highlight: false,
             }
         })
-        res.status(201).redirect("/games");
+        res.status(201).redirect("/");
     }catch{
         console.error(error);
         res.status(400).json({ error: "game highlight removal failed" });

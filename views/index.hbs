@@ -15,7 +15,7 @@
         {{#each gamesHighlight}}
             <li class="item">
                 <a href="/games/{{this.id}}" class="link">{{this.title}}</a> 
-                <form action="/{{this.id}}/unhighlight">
+                <form action="/games/{{this.id}}/unhighlight" method="POST">
                     <button class="highlight">★</button>
                 </form>
             </li>
