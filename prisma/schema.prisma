@@ -18,6 +18,7 @@ model Games {
   title     String
   description    String  
   ReleaseDate DateTime @default(now())
+  highlight Boolean @default(false)
   id_Genre Int           @default(0)
   id_Editor Int         @default(0)
 

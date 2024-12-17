@@ -21,6 +21,8 @@ hbs.registerPartials(path.join(__dirname, "views", "partials")); // On définit 
 // Cela permet de récupérer les données envoyées via des formulaires et les rendre disponibles dans req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
 
+InsertGenres() 
+
 async function InsertGenres() {
     // Données à insérer
     try{
@@ -52,8 +54,16 @@ async function InsertGenres() {
 
 // gère l'appel de la racine et renvoie a l'acceuil
 app.get("/", async (req, res) => {
-    InsertGenres() 
-    res.render("index");
+
+    const gamesHighlight = await prisma.games.findMany({
+        where:{
+            highlight : true,
+        }
+    });
+    res.render("index",{gamesHighlight});
+
+    
+
 });
 
 //inclure les routes
