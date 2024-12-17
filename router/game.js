@@ -82,6 +82,7 @@ router.get("/:id/edit", async (req, res) => {
     
 });
 
+//update d'un jeux
 router.post("/:id", async (req, res) => {
     const gameId = parseInt(req.params.id);
     const { title, description, ReleaseDate, id_Genre, id_Editor } = req.body;
@@ -105,6 +106,8 @@ try{
     }
 });
 
+
+//supprime un jeux
 router.post("/:id/delete", async (req, res) => {
     try{
             const deleteGame = await prisma.games.delete({
@@ -119,6 +122,7 @@ router.post("/:id/delete", async (req, res) => {
     }
 });
 
+//mettre les jeux en favoris
 router.post("/:id/highlight", async(req,res)=>{
     try{
          const highlightGame = await prisma.games.update({
@@ -136,6 +140,7 @@ router.post("/:id/highlight", async(req,res)=>{
     }
 })
 
+//enleve les jeux des favoris
 router.post("/:id/unhighlight", async(req,res)=>{
     try{
         const unhighlightedGame = await prisma.games.update({

@@ -14,6 +14,7 @@ router.use("/games",game.router);
 router.use("/editors",editor.router);
 router.use("/genres",genre.router);
 
+//Exporte les objets vers les fichier qui en ont besoin
 module.exports = {
     router,
 }

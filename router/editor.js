@@ -78,7 +78,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
-//modify editor
+//modification d'un éditeur
 router.post("/:id", async (req, res) => {
     const editorId = parseInt(req.params.id);
     const { name } = req.body;
