@@ -8,7 +8,7 @@ const PORT = 3008;
 
 const hbs = require("hbs");
 const path = require('path');
-const { error } = require("console");
+const {error} = require("console");
 
 app.use(express.static("public"));
 
@@ -21,36 +21,10 @@ hbs.registerPartials(path.join(__dirname, "views", "partials")); // On définit 
 // Cela permet de récupérer les données envoyées via des formulaires et les rendre disponibles dans req.body.
 app.use(bodyParser.urlencoded({ extended: true }));
 
-InsertGenres() 
 
-async function InsertGenres() {
-    // Données à insérer
-    try{
-        const dataGenre = [
-            { id: 1, name: 'Action'},
-            { id: 2, name: 'Aventure' },
-            { id: 3, name: 'RPG'},
-            { id: 4, name: 'Simulation' },
-            { id: 5, name: 'Sport'},
-            { id: 6, name: 'MMORPG' },
-        ];
-    
-        for (const data of dataGenre ) {
-        const IsExisting = await prisma.genres.findUnique({
-            where: { id: data.id }, // Assurez-vous que l'attribut `id` ou autre clé unique existe
-        });
-    
-        if (!IsExisting) {
-            await prisma.genres.create({
-            data,
-            });
-        }
-        }
-    } catch(error){
-        console.error(error);
-        res.status(400).json({ error: "Failed init database" });
-    }
-  }
+//Création des donnée dans la base
+const {InsertData} = require("./init/initDB");
+InsertData() ;
 
 // gère l'appel de la racine et renvoie a l'acceuil
 app.get("/", async (req, res) => {
@@ -60,9 +34,11 @@ app.get("/", async (req, res) => {
             highlight : true,
         }
     });
-    res.render("index",{gamesHighlight});
+    const game = await prisma.games.findMany({
+        take: 5,
+      });
+    res.render("index",{gamesHighlight,game});
 
-    
 
 });
 

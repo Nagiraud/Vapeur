@@ -4,9 +4,6 @@ const prisma = new PrismaClient();
 const express = require("express");
 const router = express.Router();
 
-
-
-
 //importer les fichier contenant les routes de game,editor et genre
 const game = require("./game");
 const editor = require("./editor");

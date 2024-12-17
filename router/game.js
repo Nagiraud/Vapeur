@@ -129,7 +129,7 @@ router.post("/:id/highlight", async(req,res)=>{
                 highlight : true,
             }
          })
-         res.status(201).redirect("/games");
+         res.status(201).redirect(req.get("Referer") || "/");
     } catch{
         console.error(error);
         res.status(400).json({ error: "game highlight failed" });
@@ -146,7 +146,7 @@ router.post("/:id/unhighlight", async(req,res)=>{
                 highlight: false,
             }
         })
-        res.status(201).redirect("/");
+        res.status(201).redirect(req.get("Referer") || "/");
     }catch{
         console.error(error);
         res.status(400).json({ error: "game highlight removal failed" });

@@ -1,16 +1,26 @@
 <div class="content">
-    <h1>Bienvenue sur notre site</h1>
-    <div class="list"> 
-        <a href="games">Voir les jeux</a>
-        <a href="games/new">Ajouter un jeux</a>
+    <h1>Bienvenue sur Vapeur</h1>
+    <p>Gérer vos jeux grace a Vapeur ! </p>
 
-        <a href="editors">Voir les editeurs</a>
-        <a href="editors/new">Ajouter un éditeur</a>
+    <h1>Jeux à la une</h1>
+    <ul class="list">
+        {{#each game}}
+            <li class="item">
+                <a href="/games/{{id}}" class="link">{{title}}</a> 
+                {{#if this.highlight}}
+                    <form action="/games/{{id}}/unhighlight" method="post">
+                        <button class="highlight">★</button>
+                    </form>
+                {{else}}
+                    <form action="/games/{{id}}/highlight" method="post">
+                        <button class="highlight">☆</button>
+                    </form>
+                {{/if}}
+            </li>
+        {{/each }}
+    </ul>
 
-        <a href="genres">Voir les genres</a>
-    </div>
-
-    <h1>Jeux mis en avant</h1>
+    <h1>Jeux préféré</h1>
     <ul>
         {{#each gamesHighlight}}
             <li class="item">
