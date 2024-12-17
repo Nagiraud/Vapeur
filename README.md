@@ -35,7 +35,7 @@ npx prisma generate
 npm start
 ````
 
-
+Enfin, accéder au site en suivant ce lien : [http://localhost:3008](http://localhost:3008)
 ## Crédits
 
 Créer par [Nathan Giraud](https://github.com/Nagiraud/) et [Julien Demaiziere](https://github.com/Julienlink/)
