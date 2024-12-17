@@ -25,6 +25,10 @@ DATABASE_URL="file:./database.db"
 ````
 
 ## Démarrer le serveur
+- Création de la base de donnée
+````
+npx prisma migrate dev --name init
+````
 
 - Démarrer prisma
 ````
