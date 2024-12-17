@@ -5,8 +5,17 @@
         {{#each games}}
             <li class="item">
                 <a href="/games/{{id}}" class="link">{{title}}</a> 
+                {{#if this.highlight}}
+                    <form action="/games/{{id}}/unhighlight" method="post">
+                        <button class="highlight">★</button>
+                    </form>
+                {{else}}
+                    <form action="/games/{{id}}/highlight" method="post">
+                        <button class="highlight">☆</button>
+                    </form>
+                {{/if}}
             </li>
-        {{/each}}
+        {{/each }}
     </ul>
 
     <a href="games/new" class="link">Ajouter un jeux</a>

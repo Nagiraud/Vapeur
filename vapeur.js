@@ -25,15 +25,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // gère l'appel de la racine et renvoie a l'acceuil
 app.get("/", async (req, res) => {
-    
-    res.render("index");
+    const gamesHighlight = await prisma.games.findMany({
+        where:{
+            highlight : true,
+        }
+    });
+    res.render("index",{gamesHighlight});
 });
 
 //inclure les routes
 const router = require("./router/route");
 app.use("/",router.router);
 
-
+app.post(":id/unhighlight", async (req,res) =>{
+    const unHighlightedGame = await prisma.games.update({
+        where:{
+            id: parseInt(req.params.id),
+        },
+        data:{
+            highlight : false,
+        }
+    })
+    res.render("index");
+})
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

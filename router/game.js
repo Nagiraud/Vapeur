@@ -107,6 +107,40 @@ router.post("/:id/delete", async (req, res) => {
     }
 });
 
+router.post("/:id/highlight", async(req,res)=>{
+    try{
+         const highlightGame = await prisma.games.update({
+            where:{
+                id: parseInt(req.params.id),
+            },
+            data:{
+                highlight : true,
+            }
+         })
+         res.status(201).redirect("/games");
+    } catch{
+        console.error(error);
+        res.status(400).json({ error: "game highlight failed" });
+    }
+})
+
+router.post("/:id/unhighlight", async(req,res)=>{
+    try{
+        const unhighlightedGame = await prisma.games.update({
+            where:{
+                id: parseInt(req.params.id),
+            },
+            data:{
+                highlight: false,
+            }
+        })
+        res.status(201).redirect("/games");
+    }catch{
+        console.error(error);
+        res.status(400).json({ error: "game highlight removal failed" });
+    }
+})
+
 module.exports = {
     router,
 }

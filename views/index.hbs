@@ -8,6 +8,17 @@
         <a href="editors/new">Ajouter un éditeur</a>
 
         <a href="genres">Voir les genres</a>
-
     </div>
+
+    <h1>Jeux mis en avant</h1>
+    <ul>
+        {{#each gamesHighlight}}
+            <li class="item">
+                <a href="/games/{{this.id}}" class="link">{{this.title}}</a> 
+                <form action="/{{this.id}}/unhighlight">
+                    <button class="highlight">★</button>
+                </form>
+            </li>
+        {{/each}}
+    </ul>
 </div>
