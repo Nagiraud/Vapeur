@@ -12,26 +12,28 @@ Vous pouvez :
 
 Pour commencer :
 
-### Installer les dépendances
-``
+ - Installer les dépendances
+
+````
 npm install
-``
-### Créé le .env
-créé le .env à la racine du projet et ajoutez cette ligne :
-``
+````
+
+- créé le .env à la racine du projet et ajoutez cette ligne :
+
+````
 DATABASE_URL="file:./database.db"
-``
+````
 
 ## Démarrer le serveur
 
-### Démarrer prisma
-``
+- Démarrer prisma
+````
 npx prisma generate
-``
-### Démarrer le serveur
-``
+````
+- Démarrer le serveur
+````
 npm start
-``
+````
 
 
 ## Crédits
