@@ -2,7 +2,7 @@
     <h1>Tous les jeux de {{editor.name}}</h1>
 
     <div class="actions">
-        <form action="/editors/{{id}}/delete" id="delete" method="POST" class="inline-form">
+        <form action="/editors/{{editor.id}}/delete" id="delete" method="POST" class="inline-form">
             <button type="submit" class="btn delete-btn">Supprimer</button>
         </form>
         <form action="/editors/{{editor.id}}/edit" method="GET" class="inline-form">

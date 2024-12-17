@@ -80,9 +80,10 @@ router.get("/:id", async (req, res) => {
 
 //modification d'un éditeur
 router.post("/:id", async (req, res) => {
+    
+try{
     const editorId = parseInt(req.params.id);
     const { name } = req.body;
-try{
     const updatedEditors = await prisma.editors.update({
             where: {
                 id: editorId, 
