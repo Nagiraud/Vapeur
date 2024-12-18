@@ -30,10 +30,9 @@ async function InsertData() {
                 });
             }
             }
-    
     } catch(error){
         console.error(error);
-        res.status(400).json({ error: "Failed init database" });
+        console.log("Database init failed");
     }
   }
 
