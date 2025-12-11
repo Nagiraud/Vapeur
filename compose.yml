@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    container_name: node_prisma_app
+    ports:
+      - "3008:3008"
+    env_file:
+      - .env
+    volumes:
+      - sqlite-data:/app/prisma  # Le fichier SQLite persistera
+
+volumes:
+  sqlite-data:
